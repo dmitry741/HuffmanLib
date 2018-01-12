@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HuffmanLib
 {
-    class CNode
+    class BaseNode
     {
         protected byte m_Value;
 
-        public CNode()
+        public BaseNode()
         {
             m_Value = 0;
         }
@@ -22,13 +19,19 @@ namespace HuffmanLib
         }
     }
 
-    class CHistogramNode : CNode
+    class HistogramNode : BaseNode
     {
         int m_Frequency;
 
-        public CHistogramNode()
+        public HistogramNode()
         {
             m_Frequency = 0;
+        }
+
+        public HistogramNode(byte val)
+        {
+            m_Frequency = 0;
+            m_Value = val;
         }
 
         public void Inc()
@@ -71,7 +74,7 @@ namespace HuffmanLib
         }
     }
 
-    class CHNode : CNode
+    class CHNode : BaseNode
     {
         int m_weight;
         CHNode m_pLeft;
@@ -156,7 +159,7 @@ namespace HuffmanLib
         }
     }
 
-    class CHaffmanTableNode : CNode
+    class HuffmanTableNode : BaseNode
     {
         byte[] m_Code; // Haffman code
         byte m_Size; // length in bytes
@@ -165,7 +168,7 @@ namespace HuffmanLib
 
         const int c_codeSize = 32;
 
-        public CHaffmanTableNode()
+        public HuffmanTableNode()
         {
             m_Code = new byte[c_codeSize];
             m_mask = new byte[8];
@@ -255,12 +258,9 @@ namespace HuffmanLib
             return Code;
         }
 
-        public byte GetLen()
-        {
-            return m_len;
-        }
+        public byte Len => m_len;
 
-        static public bool operator ==(CHaffmanTableNode Node1, CHaffmanTableNode Node2)
+        static public bool operator ==(HuffmanTableNode Node1, HuffmanTableNode Node2)
         {
             if (Node1.m_len != Node2.m_len)
                 return false;
@@ -279,7 +279,7 @@ namespace HuffmanLib
             return result;
         }
 
-        static public bool operator !=(CHaffmanTableNode Node1, CHaffmanTableNode Node2)
+        static public bool operator !=(HuffmanTableNode Node1, HuffmanTableNode Node2)
         {
             bool result = (Node1 == Node2);
 
@@ -288,12 +288,12 @@ namespace HuffmanLib
 
         public override bool Equals(object ob)
         {
-            if (!(ob is CHaffmanTableNode))
+            if (!(ob is HuffmanTableNode))
             {
                 return false;
             }
 
-            CHaffmanTableNode Node2 = ob as CHaffmanTableNode;
+            HuffmanTableNode Node2 = ob as HuffmanTableNode;
 
             if (m_len != Node2.m_len)
                 return false;
