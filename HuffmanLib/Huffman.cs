@@ -248,7 +248,7 @@ namespace HuffmanLib
 
             // === size of histogram ===
             HistogramNode hNode = new HistogramNode();
-            int nGistogramSize = lHOut * hNode.GetSize();
+            int nGistogramSize = lHOut * hNode.Size;
             // =========================
 
             // 5 === compute total memory ===

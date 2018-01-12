@@ -5,12 +5,7 @@ namespace HuffmanLib
 {
     class BaseNode
     {
-        protected byte m_Value;
-
-        public BaseNode()
-        {
-            m_Value = 0;
-        }
+        protected byte m_Value = 0;
 
         public byte Value
         {
@@ -45,15 +40,7 @@ namespace HuffmanLib
             set { m_Frequency = value; }
         }
 
-        public int GetSize()
-        {
-            int size = 0;
-
-            size += sizeof(int); // m_Frequency
-            size++; // m_Value
-
-            return size;
-        }
+        public int Size => sizeof(int) + 1;
 
         public int ToArray(ref byte[] pBuf, int offset)
         {
