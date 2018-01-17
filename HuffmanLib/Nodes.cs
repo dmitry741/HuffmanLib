@@ -40,7 +40,7 @@ namespace HuffmanLib
             set { m_Frequency = value; }
         }
 
-        public int Size => sizeof(int) + 1;
+        static public int Size => sizeof(int) + 1;
 
         public int ToArray(ref byte[] pBuf, int offset)
         {
@@ -135,14 +135,10 @@ namespace HuffmanLib
 
         public bool IsRightType => (m_Type == 1);
 
-        public void SetMark()
+        public bool Mark
         {
-            m_bMark = true;
-        }
-
-        public bool GetMark()
-        {
-            return m_bMark;
+            get { return m_bMark; }
+            set { m_bMark = value; }
         }
     }
 

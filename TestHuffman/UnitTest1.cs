@@ -11,7 +11,7 @@ namespace TestHuffman
         {
             get
             {
-                const int c_size = 4 * 1024 * 1024; // 4 Mb
+                const int c_size = 1 * 1024 * 1024;
                 const int c_fragment_size = 32;
 
                 byte[] arr = new byte[c_size];

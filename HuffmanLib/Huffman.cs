@@ -82,7 +82,7 @@ namespace HuffmanLib
             HistogramNode[] pHN = null;
             int lHOut;
             int offset = 0;
-            int nHaffmanTableSize;
+            int nHuffmanTableSize;
 
             // 1 === create histogram ===
             GetHistogram(ref pBufIn, lenIn, out pHN, out lHOut);
@@ -94,17 +94,17 @@ namespace HuffmanLib
                 lenOut = 0;
 
                 lenOut++; // compress or uncompress
-                lenOut += sizeof(int); // lenght of haffman table
+                lenOut += sizeof(int); // lenght of huffman table
                 lenOut += sizeof(int); // uncompressed size
                 lenOut++; // value
 
                 pBufOut = new byte[lenOut];
                 byte Value = pHN[0].Value;
 
-                nHaffmanTableSize = 1;
+                nHuffmanTableSize = 1;
 
                 pBufOut[0] = 1; offset++;
-                byte[] ar1 = BitConverter.GetBytes(nHaffmanTableSize);
+                byte[] ar1 = BitConverter.GetBytes(nHuffmanTableSize);
                 byte[] ar2 = BitConverter.GetBytes(lenIn);
 
                 ar1.CopyTo(pBufOut, offset); offset += sizeof(int);
@@ -140,21 +140,21 @@ namespace HuffmanLib
             {
                 int index1 = 0;
                 int index2 = 0;
-                CHNode pHaffman;
+                CHNode pHuffman;
                 int min = 0xFFFFFFF;
                 nTreeSize = arCHTree.Count;
 
                 for (i = 0; i < nTreeSize; i++)
                 {
-                    pHaffman = arCHTree[i];
+                    pHuffman = arCHTree[i];
 
-                    if (pHaffman.GetMark())
+                    if (pHuffman.Mark)
                         continue;
 
-                    if (pHaffman.Weight < min)
+                    if (pHuffman.Weight < min)
                     {
                         index1 = i;
-                        min = pHaffman.Weight;
+                        min = pHuffman.Weight;
                     }
                 }
 
@@ -162,18 +162,18 @@ namespace HuffmanLib
 
                 for (i = 0; i < nTreeSize; i++)
                 {
-                    pHaffman = arCHTree[i];
+                    pHuffman = arCHTree[i];
 
-                    if (pHaffman.GetMark())
+                    if (pHuffman.Mark)
                         continue;
 
                     if (i == index1)
                         continue;
 
-                    if (pHaffman.Weight < min)
+                    if (pHuffman.Weight < min)
                     {
                         index2 = i;
-                        min = pHaffman.Weight;
+                        min = pHuffman.Weight;
                     }
                 }
 
@@ -191,11 +191,11 @@ namespace HuffmanLib
 
                 p1.SetRoot(ref pNewNode);
                 p1.SetLeftType();
-                p1.SetMark();
+                p1.Mark = true;
 
                 p2.SetRoot(ref pNewNode);
                 p2.SetRightType();
-                p2.SetMark();
+                p2.Mark = true;
 
                 lCur--;
             }
@@ -203,12 +203,12 @@ namespace HuffmanLib
 
             // 4 === compute size for compressed data ===
             int nCompressedDataSize = 0;
-            nHaffmanTableSize = 0;
-            HuffmanTableNode[] pHaffmanNode = new HuffmanTableNode[arCHZeroLevel.Count];
+            nHuffmanTableSize = 0;
+            HuffmanTableNode[] pHuffmanNode = new HuffmanTableNode[arCHZeroLevel.Count];
 
             for (i = 0; i < arCHZeroLevel.Count; i++)
             {
-                pHaffmanNode[i] = new HuffmanTableNode();
+                pHuffmanNode[i] = new HuffmanTableNode();
             }
 
             for (i = 0; i < arCHZeroLevel.Count; i++)
@@ -219,21 +219,21 @@ namespace HuffmanLib
                 {
                     if (pNode.IsRightType)
                     {
-                        pHaffmanNode[i].AddBitOne(); // 1
+                        pHuffmanNode[i].AddBitOne(); // 1
                     }
                     else
                     {
-                        pHaffmanNode[i].AddBitZero(); // 0
+                        pHuffmanNode[i].AddBitZero(); // 0
                     }
 
                     pNode = pNode.GetRoot();
                 }
 
                 pNode = arCHZeroLevel[i];
-                pHaffmanNode[i].Value = pNode.Value;
-                pHaffmanNode[i].Invert();
+                pHuffmanNode[i].Value = pNode.Value;
+                pHuffmanNode[i].Invert();
 
-                nCompressedDataSize += (pHaffmanNode[i].Len * pNode.Weight); // measured in bits
+                nCompressedDataSize += (pHuffmanNode[i].Len * pNode.Weight); // measured in bits
             }
 
             if (nCompressedDataSize % 8 == 0)
@@ -246,17 +246,12 @@ namespace HuffmanLib
             }
             // ==========================================
 
-            // === size of histogram ===
-            HistogramNode hNode = new HistogramNode();
-            int nGistogramSize = lHOut * hNode.Size;
-            // =========================
-
             // 5 === compute total memory ===
             lenOut = 0;
 
             lenOut++; // compress or uncompress
             lenOut += sizeof(int); // lenght of huffman table
-            lenOut += nGistogramSize;
+            lenOut += lHOut * HistogramNode.Size; // histogram size
             lenOut += sizeof(int); // uncompressed size
             lenOut += nCompressedDataSize;
             // ==============================
@@ -271,7 +266,8 @@ namespace HuffmanLib
 
             // 7 === Encoding ===
             pBufOut = new byte[lenOut];
-            byte[] p = pBufOut; for (i = 0; i < p.Length; i++) p[i] = 0;
+            byte[] p = pBufOut;
+            Array.Clear(p, 0, p.Length);
 
             offset = 0;
             int index, j;
@@ -302,7 +298,7 @@ namespace HuffmanLib
             {
                 for (j = 0; j < nZeroLevel; j++)
                 {
-                    if (i == pHaffmanNode[j].Value)
+                    if (i == pHuffmanNode[j].Value)
                     {
                         pIndex[i] = Convert.ToByte(j);
                         break;
@@ -313,7 +309,7 @@ namespace HuffmanLib
             for (i = 0; i < lenIn; i++)
             {
                 index = pIndex[pBufIn[i]];
-                CodeLen = pHaffmanNode[index].Len;
+                CodeLen = pHuffmanNode[index].Len;
 
                 for (j = 0; j < CodeLen; j++)
                 {
@@ -323,7 +319,7 @@ namespace HuffmanLib
                         offset++;
                     }
 
-                    Code = pHaffmanNode[index].GetBit(j);
+                    Code = pHuffmanNode[index].GetBit(j);
                     CodeForWriting = Convert.ToByte(Code << (nBits - 1));
                     p[offset] |= CodeForWriting;
 
@@ -386,8 +382,6 @@ namespace HuffmanLib
             }
             // =========================
 
-            // === begin tree from encode ====
-
             // 2 === create zero level of tree ===
             List<CHNode> arCHZeroLevel = new List<CHNode>();
             int lHOut = nHaffmanTableSize;
@@ -423,7 +417,7 @@ namespace HuffmanLib
                 {
                     pHaffman = arCHTree[i];
 
-                    if (pHaffman.GetMark())
+                    if (pHaffman.Mark)
                         continue;
 
                     if (pHaffman.Weight < min)
@@ -439,7 +433,7 @@ namespace HuffmanLib
                 {
                     pHaffman = arCHTree[i];
 
-                    if (pHaffman.GetMark())
+                    if (pHaffman.Mark)
                         continue;
 
                     if (i == index1)
@@ -466,11 +460,11 @@ namespace HuffmanLib
 
                 p1.SetRoot(ref pNewNode);
                 p1.SetLeftType();
-                p1.SetMark();
+                p1.Mark = true;
 
                 p2.SetRoot(ref pNewNode);
                 p2.SetRightType();
-                p2.SetMark();
+                p2.Mark = true;
 
                 lCur--;
             }
@@ -499,7 +493,7 @@ namespace HuffmanLib
                     Digit = Convert.ToByte(Digit >> (nBits - 1));
                     nBits--;
 
-                    // === fast search haffman table index ===
+                    // === fast search huffman table index ===
                     pHaffman1 = (Digit == 0) ? pHaffman1.GetLeft() : pHaffman1.GetRight();
                     // =======================================
 
@@ -510,9 +504,7 @@ namespace HuffmanLib
                     }
 
                     if (pHaffman1.GetRight() == null)
-                    {
                         break;
-                    }
                 }
 
                 if (pHaffman1.GetRight() == null)
