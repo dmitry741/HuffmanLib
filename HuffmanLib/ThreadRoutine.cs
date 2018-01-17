@@ -1,4 +1,6 @@
-﻿namespace HuffmanLib
+﻿using System.Threading;
+
+namespace HuffmanLib
 {
     class ThreadRoutine
     {
@@ -7,8 +9,8 @@
         byte[] m_aOut = null;
 
         // === sync ===
-        public System.Threading.EventWaitHandle ewhStart = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset);
-        public System.Threading.EventWaitHandle ewhStop = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset);
+        public EventWaitHandle ewhStart = new EventWaitHandle(false, EventResetMode.AutoReset);
+        public EventWaitHandle ewhStop = new EventWaitHandle(false, EventResetMode.AutoReset);
         // ============
 
         public byte[] ArrayIn

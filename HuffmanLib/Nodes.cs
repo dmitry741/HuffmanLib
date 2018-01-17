@@ -310,12 +310,5 @@ namespace HuffmanLib
 
             return hashCode;
         }
-    }
-
-    //public interface IHuffman
-    //{
-    //    void Encode(ref byte[] pBufIn, out byte[] pBufOut);
-
-    //    void Decode(ref byte[] pBufIn, out byte[] pBufOut);
-    //}
+    }    
 }

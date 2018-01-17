@@ -106,7 +106,6 @@ namespace HuffmanLib
             for (i = 0; i < m_ProcessCount; i++)
             {
                 byte[] aOut = m_threadRoutine[i].ArrayOut;
-
                 byte[] aSize = BitConverter.GetBytes(aOut.Length);
 
                 for (j = 0; j < aSize.Length; j++)

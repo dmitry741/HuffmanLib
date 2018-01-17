@@ -255,7 +255,7 @@ namespace HuffmanLib
             lenOut = 0;
 
             lenOut++; // compress or uncompress
-            lenOut += sizeof(int); // lenght of haffman table
+            lenOut += sizeof(int); // lenght of huffman table
             lenOut += nGistogramSize;
             lenOut += sizeof(int); // uncompressed size
             lenOut += nCompressedDataSize;
