@@ -11,12 +11,17 @@ namespace TestHuffman
         {
             get
             {
-                const int c_size = 1 * 1024 * 1024; // 4 Mb
+                const int c_size = 4 * 1024 * 1024; // 4 Mb
+                const int c_fragment_size = 32;
+
                 byte[] arr = new byte[c_size];
+                Random rnd = new Random();
+                byte[] fragment = new byte[c_fragment_size];
+                rnd.NextBytes(fragment);
 
                 for (int i = 0; i < c_size; i++)
                 {
-                    arr[i] = Convert.ToByte(i % 32);
+                    arr[i] = fragment[i % c_fragment_size];
                 }
 
                 return arr;

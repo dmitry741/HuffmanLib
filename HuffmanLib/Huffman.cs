@@ -353,13 +353,16 @@ namespace HuffmanLib
             }
             // ==============================================
 
-            // 1 === Get Haffman table ===
+            // 1 === Get Huffman table ===
             int i;
-            int nHaffmanTableSize = BitConverter.ToInt32(pBufIn, offset); offset += sizeof(int);
+            int nHaffmanTableSize = BitConverter.ToInt32(pBufIn, offset);
+            offset += sizeof(int);
 
             if (nHaffmanTableSize == 1)
             {
-                int uncompressed = BitConverter.ToInt32(pBufIn, offset); offset += sizeof(int);
+                int uncompressed = BitConverter.ToInt32(pBufIn, offset);
+                offset += sizeof(int);
+
                 byte Value = pBufIn[offset];
 
                 lenOut = uncompressed;
@@ -484,7 +487,7 @@ namespace HuffmanLib
             int offsetOut = 0;
             int nBits = 8;
             byte Digit;
-            CHNode pHaffman1 = null;
+            CHNode pHaffman1;
 
             while (offsetOut < lenOut)
             {
@@ -497,14 +500,7 @@ namespace HuffmanLib
                     nBits--;
 
                     // === fast search haffman table index ===
-                    if (Digit == 0)
-                    {
-                        pHaffman1 = pHaffman1.GetLeft();
-                    }
-                    else
-                    {
-                        pHaffman1 = pHaffman1.GetRight();
-                    }
+                    pHaffman1 = (Digit == 0) ? pHaffman1.GetLeft() : pHaffman1.GetRight();
                     // =======================================
 
                     if (nBits == 0)
@@ -550,7 +546,6 @@ namespace HuffmanLib
                     break;
                 }
 
-                pIn = null;
                 pIn = new byte[pOut.Length];
                 pOut.CopyTo(pIn, 0);
             }
@@ -574,7 +569,6 @@ namespace HuffmanLib
             {
                 DecodeArray(ref pIn, out pOut);
 
-                pIn = null;
                 pIn = new byte[pOut.Length];
                 pOut.CopyTo(pIn, 0);
                 pOut = null;
