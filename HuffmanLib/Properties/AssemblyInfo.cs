@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HuffmanLib")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Danfoss")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HuffmanLib")]
-[assembly: AssemblyCopyright("Copyright © Danfoss 2018")]
+[assembly: AssemblyCopyright("Copyright © Pavlov Dmitry 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

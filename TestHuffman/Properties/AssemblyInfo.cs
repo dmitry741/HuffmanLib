@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("TestHuffman")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Danfoss")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TestHuffman")]
-[assembly: AssemblyCopyright("Copyright © Danfoss 2018")]
+[assembly: AssemblyCopyright("Copyright © Pavlov Dmitry 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
