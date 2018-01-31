@@ -35,6 +35,8 @@
             this.lblEncodeArray = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbChars = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblPercent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -101,11 +103,31 @@
             this.cmbChars.Size = new System.Drawing.Size(69, 21);
             this.cmbChars.TabIndex = 6;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 174);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Encoded:";
+            // 
+            // lblPercent
+            // 
+            this.lblPercent.AutoSize = true;
+            this.lblPercent.Location = new System.Drawing.Point(71, 174);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(35, 13);
+            this.lblPercent.TabIndex = 8;
+            this.lblPercent.Text = "label4";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 249);
+            this.Controls.Add(this.lblPercent);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbChars);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblEncodeArray);
@@ -132,6 +154,8 @@
         private System.Windows.Forms.Label lblEncodeArray;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbChars;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblPercent;
     }
 }
 

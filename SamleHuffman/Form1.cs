@@ -52,6 +52,12 @@ namespace SamleHuffman
 
             mh.Decode(ref encodeArray, out decodeArray);
 
+            lblSourceArray.Text = string.Format("{0} Kb", testArray.Length / 1024);
+            lblEncodeArray.Text = string.Format("{0} Kb", encodeArray.Length / 1024);
+
+            double percent = 100 - 100.0 / testArray.Length * encodeArray.Length;
+            lblPercent.Text = string.Format("{0}%", Convert.ToInt32(percent));
+
             bool check = true;
 
             for (int i = 0; i < testArray.Length; i++)
@@ -66,7 +72,7 @@ namespace SamleHuffman
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            lblSourceArray.Text = lblEncodeArray.Text = string.Empty;
+            lblSourceArray.Text = lblEncodeArray.Text = lblPercent.Text = string.Empty;
 
             int val = 2;
 
