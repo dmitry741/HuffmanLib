@@ -22,17 +22,14 @@ namespace SamleHuffman
         {
             get
             {
-                const int c_size = 4 * 1024 * 1024;
+                const int c_size = 2 * 1024 * 1024;
                 int fragment_size = (int)cmbChars.SelectedItem;
 
                 byte[] arr = new byte[c_size];
-                Random rnd = new Random();
-                byte[] fragment = new byte[fragment_size];
-                rnd.NextBytes(fragment);
 
                 for (int i = 0; i < c_size; i++)
                 {
-                    arr[i] = fragment[i % fragment_size];
+                    arr[i] = Convert.ToByte(i % fragment_size);
                 }
 
                 return arr;
@@ -46,11 +43,17 @@ namespace SamleHuffman
             byte[] testArray = TestArray;
             byte[] encodeArray;
 
+            DateTime dtStart = DateTime.Now;
+
+            // encode
             mh.Encode(ref testArray, out encodeArray);
 
             byte[] decodeArray;
 
+            // decode
             mh.Decode(ref encodeArray, out decodeArray);
+
+            TimeSpan ts = DateTime.Now - dtStart;
 
             lblSourceArray.Text = string.Format("{0} Kb", testArray.Length / 1024);
             lblEncodeArray.Text = string.Format("{0} Kb", encodeArray.Length / 1024);
@@ -58,21 +61,20 @@ namespace SamleHuffman
             double percent = 100 - 100.0 / testArray.Length * encodeArray.Length;
             lblPercent.Text = string.Format("{0}%", Convert.ToInt32(percent));
 
-            bool check = true;
+            lblTime.Text = string.Format("{0}:{1} s", ts.Seconds, ts.Milliseconds);
+        }
 
-            for (int i = 0; i < testArray.Length; i++)
-            {
-                if (testArray[i] != decodeArray[i])
-                {
-                    check = false;
-                    break;
-                }
-            }
+        void Clearcontrols()
+        {
+            lblSourceArray.Text = string.Empty;
+            lblEncodeArray.Text = string.Empty;
+            lblPercent.Text = string.Empty;
+            lblTime.Text = string.Empty;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            lblSourceArray.Text = lblEncodeArray.Text = lblPercent.Text = string.Empty;
+            Clearcontrols();
 
             int val = 2;
 
