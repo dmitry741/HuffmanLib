@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanLib", "HuffmanLib\Hu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHuffman", "TestHuffman\TestHuffman.csproj", "{8A8854C5-0D04-431F-B262-1564B6295518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamleHuffman", "SamleHuffman\SamleHuffman.csproj", "{AB26963F-6F4B-4BA6-9055-4C4EC746BD63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleHuffman", "SamleHuffman\SampleHuffman.csproj", "{AB26963F-6F4B-4BA6-9055-4C4EC746BD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

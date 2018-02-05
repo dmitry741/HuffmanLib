@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AB26963F-6F4B-4BA6-9055-4C4EC746BD63}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SamleHuffman</RootNamespace>
-    <AssemblyName>SamleHuffman</AssemblyName>
+    <RootNamespace>SampleHuffman</RootNamespace>
+    <AssemblyName>SampleHuffman</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,6 +63,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
