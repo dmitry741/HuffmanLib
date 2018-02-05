@@ -109,16 +109,9 @@ namespace HuffmanLib
                 byte[] aSize = BitConverter.GetBytes(aOut.Length);
 
                 Array.Copy(aSize, 0, pBufOut, StartIndex, aSize.Length);
-
                 StartIndex += aSize.Length;
 
-                //for (j = 0; j < aOut.Length; j++)
-                //{
-                //    pBufOut[j + StartIndex] = aOut[j];
-                //}
-
                 Array.Copy(aOut, 0, pBufOut, StartIndex, aOut.Length);
-
                 StartIndex += aOut.Length;
             }
 
