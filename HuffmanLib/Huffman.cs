@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HuffmanLib
 {
@@ -20,16 +21,7 @@ namespace HuffmanLib
                 pHFull[pBufIn[i]].Inc();
             }
 
-            lenOut = 0;
-
-            for (i = 0; i < 256; i++)
-            {
-                if (pHFull[i].Frequency > 0)
-                {
-                    lenOut++;
-                }
-            }
-
+            lenOut = pHFull.Count(x => x.Frequency > 0);
             pHN = new HistogramNode[lenOut];
 
             for (i = 0; i < lenOut; i++)
@@ -339,11 +331,7 @@ namespace HuffmanLib
             {
                 lenOut = BitConverter.ToInt32(pBufIn, offset); offset += sizeof(int);
                 pBufOut = new byte[lenOut];
-
-                for (int k = 0; k < lenOut; k++)
-                {
-                    pBufOut[k] = pBufIn[k + offset];
-                }
+                Array.Copy(pBufIn, offset, pBufOut, 0, lenOut);
 
                 return;
             }
@@ -393,15 +381,10 @@ namespace HuffmanLib
             // ===================================
 
             // 3 === create tree ===
-            List<CHNode> arCHTree = new List<CHNode>();
+            List<CHNode> arCHTree = new List<CHNode>(arCHZeroLevel);
             int lCur = lHOut;
             int nTreeSize;
             CHNode pRoot = null;
-
-            for (i = 0; i < lHOut; i++)
-            {
-                arCHTree.Add(arCHZeroLevel[i]);
-            }
 
             while (lCur > 1)
             {
