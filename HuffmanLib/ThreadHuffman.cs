@@ -136,11 +136,7 @@ namespace HuffmanLib
             if (pBufIn[0] == 0)
             {
                 byte[] aIn = new byte[pBufIn.Length - 1];
-
-                for (i = 0; i < aIn.Length; i++)
-                {
-                    aIn[i] = pBufIn[i + 1];
-                }
+                Array.Copy(pBufOut, 1, aIn, 0, aIn.Length);
 
                 Huffman.Decode(ref aIn, out pBufOut);
 
@@ -160,14 +156,9 @@ namespace HuffmanLib
                 StartIndex += sizeof(int);
 
                 byte[] aIn = new byte[size];
-
-                for (j = 0; j < aIn.Length; j++)
-                {
-                    aIn[j] = pBufIn[j + StartIndex];
-                }
+                Array.Copy(pBufIn, StartIndex, aIn, 0, aIn.Length);
 
                 StartIndex += size;
-
                 m_threadRoutine[i].ArrayIn = aIn;
             }
 
@@ -192,11 +183,7 @@ namespace HuffmanLib
             {
                 byte[] aOut = m_threadRoutine[i].ArrayOut;
 
-                for (j = 0; j < aOut.Length; j++)
-                {
-                    pBufOut[j + StartIndex] = aOut[j];
-                }
-
+                Array.Copy(aOut, 0, pBufOut, StartIndex, aOut.Length);
                 StartIndex += aOut.Length;
             }
 
