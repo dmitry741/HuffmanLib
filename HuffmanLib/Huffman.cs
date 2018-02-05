@@ -551,11 +551,7 @@ namespace HuffmanLib
             int i;
 
             pIn = new byte[pBufIn.Length - 1];
-
-            for (i = 0; i < pIn.Length; i++)
-            {
-                pIn[i] = pBufIn[i + 1];
-            }
+            Array.Copy(pBufIn, 1, pIn, 0, pIn.Length);
 
             for (i = 0; i < counter; i++)
             {
