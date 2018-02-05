@@ -108,17 +108,16 @@ namespace HuffmanLib
                 byte[] aOut = m_threadRoutine[i].ArrayOut;
                 byte[] aSize = BitConverter.GetBytes(aOut.Length);
 
-                for (j = 0; j < aSize.Length; j++)
-                {
-                    pBufOut[j + StartIndex] = aSize[j];
-                }
+                Array.Copy(aSize, 0, pBufOut, StartIndex, aSize.Length);
 
                 StartIndex += aSize.Length;
 
-                for (j = 0; j < aOut.Length; j++)
-                {
-                    pBufOut[j + StartIndex] = aOut[j];
-                }
+                //for (j = 0; j < aOut.Length; j++)
+                //{
+                //    pBufOut[j + StartIndex] = aOut[j];
+                //}
+
+                Array.Copy(aOut, 0, pBufOut, StartIndex, aOut.Length);
 
                 StartIndex += aOut.Length;
             }
