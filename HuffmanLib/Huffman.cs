@@ -119,14 +119,9 @@ namespace HuffmanLib
             // ===================================
 
             // 3 === create tree ===
-            List<CHNode> arCHTree = new List<CHNode>();
+            List<CHNode> arCHTree = new List<CHNode>(arCHZeroLevel);
             int lCur = lHOut;
             int nTreeSize;
-
-            for (i = 0; i < lHOut; i++)
-            {
-                arCHTree.Add(arCHZeroLevel[i]);
-            }
 
             while (lCur > 1)
             {
