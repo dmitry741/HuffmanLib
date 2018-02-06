@@ -92,9 +92,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 74);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.Size = new System.Drawing.Size(154, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Numbers of various character:";
+            this.label5.Text = "Numbers of various characters:";
             // 
             // cmbChars
             // 
@@ -145,7 +145,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(283, 246);
+            this.ClientSize = new System.Drawing.Size(256, 246);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblPercent);

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HuffmanLib;
+
+// develpoped by Dmitry Pavlov 2018 email: dmitrypavlov74@gmail.com
 
 namespace SamleHuffman
 {
@@ -24,7 +19,6 @@ namespace SamleHuffman
             {
                 const int c_size = 2 * 1024 * 1024;
                 int fragment_size = (int)cmbChars.SelectedItem;
-
                 byte[] arr = new byte[c_size];
 
                 for (int i = 0; i < c_size; i++)
