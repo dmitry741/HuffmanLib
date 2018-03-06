@@ -1,5 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO.Compression;
+using System.IO;
+using System.Linq;
 using HuffmanLib;
 
 namespace TestHuffman
@@ -11,7 +14,7 @@ namespace TestHuffman
         {
             get
             {
-                const int c_size = 1 * 1024 * 1024;
+                const int c_size = 4 * 1024 * 1024;
                 const int c_fragment_size = 64;
 
                 byte[] arr = new byte[c_size];
@@ -84,6 +87,36 @@ namespace TestHuffman
             }
 
             Assert.IsTrue(check);
+        }
+
+        [TestMethod]
+        public void TestZipStream()
+        {
+            byte[] testAr = TestArray;
+
+            // compress
+            MemoryStream ms = new MemoryStream(testAr);
+            MemoryStream outStream = new MemoryStream();
+
+            using (GZipStream zipStream = new GZipStream(outStream, CompressionMode.Compress))
+            {
+                ms.CopyTo(zipStream);
+            }
+
+            byte[] bOut = outStream.ToArray();
+
+            ms.Close();
+            outStream.Close();
+
+            // decompress
+            GZipStream bigStream = new GZipStream(new MemoryStream(bOut), CompressionMode.Decompress);
+            MemoryStream bigStreamOut = new MemoryStream();
+            bigStream.CopyTo(bigStreamOut);
+
+            byte[] decodeAr = bigStreamOut.ToArray();
+            var dif = testAr.Zip(decodeAr, (a, b) => a - b);
+
+            Assert.IsFalse(dif.Any(x => x != 0));
         }
     }
 }
